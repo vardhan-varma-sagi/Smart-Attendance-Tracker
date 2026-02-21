@@ -1,13 +1,9 @@
 const multer = require('multer');
 const path = require('path');
 
-// Set storage engine
-const storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
+// Use memory storage so files are kept in a buffer rather than written to disk.
+// This is required for serverless environments where the filesystem is read-only.
+const storage = multer.memoryStorage();
 
 // Init Upload
 const upload = multer({
