@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   entry: "./index.js",
@@ -7,6 +8,11 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/"
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL)
+    })
+  ],
   module: {
     rules: [
       {
