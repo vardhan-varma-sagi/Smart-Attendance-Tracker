@@ -1,0 +1,108 @@
+Testing connection to: mongodb+srv://vardhan_db_admin:vardhan_2004@cluster0.ctjcaw0.mongodb.net/?appName=Cluster0
+✗ MongoDB Connection Failed: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+Error Name: MongooseServerSelectionError
+Error Code: undefined
+Reason: {
+  "type": "ReplicaSetNoPrimary",
+  "servers": {
+    "ac-eiqorfe-shard-00-01.ctjcaw0.mongodb.net:27017": {
+      "address": "ac-eiqorfe-shard-00-01.ctjcaw0.mongodb.net:27017",
+      "type": "Unknown",
+      "hosts": [],
+      "passives": [],
+      "arbiters": [],
+      "tags": {},
+      "minWireVersion": 0,
+      "maxWireVersion": 0,
+      "roundTripTime": -1,
+      "minRoundTripTime": 0,
+      "lastUpdateTime": 136477221,
+      "lastWriteDate": 0,
+      "error": {
+        "errorLabelSet": {},
+        "beforeHandshake": false
+      },
+      "topologyVersion": null,
+      "setName": null,
+      "setVersion": null,
+      "electionId": null,
+      "logicalSessionTimeoutMinutes": null,
+      "maxMessageSizeBytes": null,
+      "maxWriteBatchSize": null,
+      "maxBsonObjectSize": null,
+      "primary": null,
+      "me": null,
+      "$clusterTime": null,
+      "iscryptd": false
+    },
+    "ac-eiqorfe-shard-00-02.ctjcaw0.mongodb.net:27017": {
+      "address": "ac-eiqorfe-shard-00-02.ctjcaw0.mongodb.net:27017",
+      "type": "Unknown",
+      "hosts": [],
+      "passives": [],
+      "arbiters": [],
+      "tags": {},
+      "minWireVersion": 0,
+      "maxWireVersion": 0,
+      "roundTripTime": -1,
+      "minRoundTripTime": 0,
+      "lastUpdateTime": 136477215,
+      "lastWriteDate": 0,
+      "error": {
+        "errorLabelSet": {},
+        "beforeHandshake": false
+      },
+      "topologyVersion": null,
+      "setName": null,
+      "setVersion": null,
+      "electionId": null,
+      "logicalSessionTimeoutMinutes": null,
+      "maxMessageSizeBytes": null,
+      "maxWriteBatchSize": null,
+      "maxBsonObjectSize": null,
+      "primary": null,
+      "me": null,
+      "$clusterTime": null,
+      "iscryptd": false
+    },
+    "ac-eiqorfe-shard-00-00.ctjcaw0.mongodb.net:27017": {
+      "address": "ac-eiqorfe-shard-00-00.ctjcaw0.mongodb.net:27017",
+      "type": "Unknown",
+      "hosts": [],
+      "passives": [],
+      "arbiters": [],
+      "tags": {},
+      "minWireVersion": 0,
+      "maxWireVersion": 0,
+      "roundTripTime": -1,
+      "minRoundTripTime": 0,
+      "lastUpdateTime": 136477401,
+      "lastWriteDate": 0,
+      "error": {
+        "errorLabelSet": {},
+        "beforeHandshake": false
+      },
+      "topologyVersion": null,
+      "setName": null,
+      "setVersion": null,
+      "electionId": null,
+      "logicalSessionTimeoutMinutes": null,
+      "maxMessageSizeBytes": null,
+      "maxWriteBatchSize": null,
+      "maxBsonObjectSize": null,
+      "primary": null,
+      "me": null,
+      "$clusterTime": null,
+      "iscryptd": false
+    }
+  },
+  "stale": false,
+  "compatible": true,
+  "heartbeatFrequencyMS": 10000,
+  "localThresholdMS": 15,
+  "setName": "atlas-2xaz9z-shard-0",
+  "maxElectionId": null,
+  "maxSetVersion": null,
+  "commonWireVersion": 0,
+  "logicalSessionTimeoutMinutes": null
+}
