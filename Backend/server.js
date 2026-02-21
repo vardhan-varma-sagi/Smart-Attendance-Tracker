@@ -53,7 +53,13 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`✓ Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-    console.log(`✓ API available at http://localhost:${PORT}`);
-});
+// Only bind to a port if running locally
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`✓ Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+        console.log(`✓ API available at http://localhost:${PORT}`);
+    });
+}
+
+// Export the app for Vercel's serverless functions
+module.exports = app;
