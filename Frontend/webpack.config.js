@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: "./index.js",
@@ -11,6 +12,9 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL)
+    }),
+    new HtmlWebpackPlugin({
+      template: './index.html'
     })
   ],
   module: {
