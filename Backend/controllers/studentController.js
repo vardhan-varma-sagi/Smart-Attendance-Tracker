@@ -1,6 +1,7 @@
 const Session = require('../models/Session');
 const Attendance = require('../models/Attendance');
 const cloudinary = require('../config/cloudinary');
+const { Readable } = require('stream');
 // `fs` is no longer needed since we upload from memory rather than from disk
 
 // Helper to calculate distance (Haversine Formula)
@@ -80,29 +81,20 @@ const markAttendance = async (req, res) => {
         // We will just store it for now as "verification".
 
         // Since we're now using memoryStorage, the file is available as a buffer.
-        // TODO: integrate cloud storage upload using the buffer and originalname.
-        // Example placeholder (using cloudinary upload_stream):
-        //
-        // const streamifier = require('streamifier');
-        // const streamUpload = (buffer) => {
-        //   return new Promise((resolve, reject) => {
-        //     const stream = cloudinary.uploader.upload_stream(
-        //       { folder: 'attendance_snapshots' },
-        //       (error, result) => {
-        //         if (result) resolve(result);
-        //         else reject(error);
-        //       }
-        //     );
-        //     streamifier.createReadStream(buffer).pipe(stream);
-        //   });
-        // };
-        // const result = await streamUpload(file.buffer);
-
-        // For now we'll pretend the upload returned a secure_url field
-        // In a real implementation you'd replace the section above with the upload logic
-        // using file.buffer and file.originalname.
-        const result = await Promise.resolve({ secure_url: 'https://example.com/placeholder.jpg' });
-        // NOTE: replace above dummy result with real upload call using file.buffer
+        const streamUpload = (buffer) => {
+            return new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: 'attendance_snapshots' },
+                    (error, result) => {
+                        if (result) resolve(result);
+                        else reject(error);
+                    }
+                );
+                Readable.from(buffer).pipe(stream);
+            });
+        };
+        
+        const result = await streamUpload(file.buffer);
 
         const attendance = await Attendance.create({
             session: session._id,

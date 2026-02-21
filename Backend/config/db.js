@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
+    if (mongoose.connection.readyState >= 1) {
+        console.log('✓ MongoDB connection already established.');
+        return;
+    }
+
     try {
         const mongoURI = process.env.MONGO_URI;
         
