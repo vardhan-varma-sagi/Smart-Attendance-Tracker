@@ -20,10 +20,17 @@ if (missingEnvVars.length > 0) {
     process.exit(1);
 }
 
-// Connect to database
-connectDB();
-
 const app = express();
+
+// Database connection middleware for serverless
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 
 // Middleware
 app.use(cors());
