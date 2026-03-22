@@ -4,15 +4,15 @@ import API from "../../services/api";
 import Spinner from "../../components/common/Spinner.jsx";
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!email) {
-            setError("Email is required");
+        if (!phone) {
+            setError("Mobile number is required");
             return;
         }
 
@@ -21,8 +21,8 @@ const ForgotPassword = () => {
         setMessage("");
 
         try {
-            await API.post("/auth/forgotpassword", { email });
-            setMessage("Email sent successfully! Please check your inbox.");
+            await API.post("/auth/forgotpassword", { phone });
+            setMessage("SMS sent successfully! Please check your mobile for reset instructions.");
         } catch (err) {
             setError(err.response?.data?.message || "Something went wrong.");
         } finally {
@@ -35,18 +35,18 @@ const ForgotPassword = () => {
             <div className="card auth-card">
                 <div className="auth-title">Forgot Password</div>
                 <div className="auth-subtitle">
-                    Enter your email address to verify your account.
+                    Enter your mobile number to verify your account.
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                        <label className="input-label">Email</label>
+                        <label className="input-label">Mobile Number</label>
                         <input
-                            type="email"
+                            type="tel"
                             className="input-field"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your mobile number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </div>
 
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
                         style={{ width: "100%", marginTop: "1rem" }}
                         disabled={loading}
                     >
-                        {loading ? <><Spinner /> Sending...</> : "Send Reset Link"}
+                        {loading ? <><Spinner /> Sending...</> : "Send Reset SMS"}
                     </button>
                 </form>
 

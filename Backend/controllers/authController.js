@@ -122,13 +122,13 @@ const crypto = require('crypto');
 // @route   POST /api/auth/forgotpassword
 // @access  Public
 const forgotPassword = async (req, res) => {
-    const { email } = req.body;
+    const { phone } = req.body;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ phone });
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found with this email' });
+            return res.status(404).json({ message: 'User not found with this mobile number' });
         }
 
         // Get reset token
@@ -144,28 +144,21 @@ const forgotPassword = async (req, res) => {
         // Ideally ENV var FRONTEND_URL.
         const resetUrl = `http://localhost:5173/resetpassword/${resetToken}`;
 
-        const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+        const message = `You are receiving this SMS because you (or someone else) has requested the reset of a password. Please use this link to reset: ${resetUrl}`;
 
         try {
-            await sendEmail({
-                email: user.email,
-                subject: 'Password Reset Token',
-                message,
-            });
-
-            res.status(200).json({ success: true, data: 'Email sent' });
+            // TODO: Implement SMS sending
+            console.log(`SMS to ${user.phone}: ${message}`);
+            res.status(200).json({ success: true, data: 'SMS sent' });
         } catch (err) {
             console.log(err);
-            console.log("DEV MODE ONLY: Reset Link (since email failed):", resetUrl);
 
             user.resetPasswordToken = undefined;
             user.resetPasswordExpire = undefined;
 
             await user.save({ validateBeforeSave: false });
 
-            // return res.status(500).json({ message: 'Email could not be sent' });
-            // For checking purpose only, normally we wouldn't return this.
-            return res.status(500).json({ message: 'Email failed (check console for link)' });
+            return res.status(500).json({ message: 'SMS could not be sent' });
         }
     } catch (error) {
         res.status(500).json({ message: error.message });

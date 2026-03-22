@@ -50,6 +50,19 @@ const RegisterPage = () => {
     setImagePreviews(prev => prev.filter((_, i) => i !== index));
   };
 
+  const validatePassword = (pwd) => {
+    if (pwd.length < 8 || pwd.length > 14) {
+      return false;
+    }
+    const hasUpper = /[A-Z]/.test(pwd);
+    const hasLower = /[a-z]/.test(pwd);
+    const hasDigit = /\d/.test(pwd);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{}|;':",./<>?]/.test(pwd);
+    const categories = [hasUpper, hasLower, hasDigit, hasSpecial];
+    const count = categories.filter(Boolean).length;
+    return count >= 3;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -57,7 +70,11 @@ const RegisterPage = () => {
     if (!name.trim()) newErrors.name = "Name is required.";
     if (!identifier.trim())
       newErrors.identifier = "Email or roll number is required.";
-    if (!password) newErrors.password = "Password is required.";
+    if (!password) {
+      newErrors.password = "Password is required.";
+    } else if (!validatePassword(password)) {
+      newErrors.password = "Password must be 8-14 characters and contain at least one character from three of the following categories: uppercase letters (A-Z), lowercase letters (a-z), digits (0-9), special characters (!@#$%^&*()_+-=[]{}|;':\",./<>?).";
+    }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
@@ -129,9 +146,6 @@ const RegisterPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Choose a strong password"
             />
-            {errors.password && (
-              <div className="error-text">{errors.password}</div>
-            )}
             {errors.password && (
               <div className="error-text">{errors.password}</div>
             )}

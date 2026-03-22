@@ -138,12 +138,14 @@ const LoginPage = () => {
             fontSize: "0.8rem"
           }}
         >
-          <span className="helper-text">
-            New {label.toLowerCase()}?{" "}
-            <Link className="link" to={`/register/${role}`}>
-              Create account
-            </Link>
-          </span>
+          {role !== "admin" && (
+            <span className="helper-text">
+              New {label.toLowerCase()}?{" "}
+              <Link className="link" to={`/register/${role}`}>
+                Create account
+              </Link>
+            </span>
+          )}
           <span className="helper-text">
             <Link className="link" to="/forgot-password">
               Forgot password?
