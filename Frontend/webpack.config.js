@@ -11,7 +11,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL)
+      'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL || '/api')
     }),
     new HtmlWebpackPlugin({
       template: './index.html'
@@ -40,7 +40,15 @@ module.exports = {
       directory: path.join(__dirname)
     },
     historyApiFallback: true,
-    port: process.env.PORT || 3001
+    port: process.env.PORT || 3001,
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false
+      }
+    ]
   }
 };
 
